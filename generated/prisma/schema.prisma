@@ -1,0 +1,54 @@
+generator client {
+  provider   = "prisma-client-js"
+  output     = "../generated/prisma"
+  engineType = "client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum PaymentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum MemberCategory {
+  PLANTEL_SUPERIOR
+  M19
+  M17
+  M16
+  M15
+  M14
+  INFANTILES
+}
+
+model Member {
+  id        Int            @id @default(autoincrement())
+  dni       String         @unique
+  name      String
+  email     String?
+  phone     String?
+  category  MemberCategory @default(PLANTEL_SUPERIOR)
+  debt      Decimal        @default(0) @db.Decimal(10, 2)
+  active    Boolean        @default(true)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  payments  Payment[]
+}
+
+model Payment {
+  id         Int           @id @default(autoincrement())
+  memberId   Int
+  member     Member        @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  amount     Decimal       @db.Decimal(10, 2)
+  receiptUrl String
+  status     PaymentStatus @default(PENDING)
+  note       String?
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  @@index([memberId])
+  @@index([status])
+}
