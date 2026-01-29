@@ -11,7 +11,7 @@ function createPrismaClient() {
     if (url) console.log(`🔌 [PRISMA] URL Start: ${url.substring(0, 25)}...`);
 
     // Use the actual production URL as fallback if env is missing
-    const connectionString = url ?? "postgresql://postgres:rugby2026%40eze@db:5432/club-rugby?schema=public";
+    const connectionString = url ?? "postgresql://postgres:rugby2026@db:5432/club-rugby?schema=public";
 
     const pool = new Pool({ connectionString });
     const adapter = new PrismaPg(pool);
