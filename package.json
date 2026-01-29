@@ -20,7 +20,8 @@
     "next": "16.1.6",
     "prisma": "^7.3.0",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "pg": "^8.11.3"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -30,6 +31,7 @@
     "eslint-config-next": "16.1.6",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "@types/pg": "^8.11.0"
   }
 }
