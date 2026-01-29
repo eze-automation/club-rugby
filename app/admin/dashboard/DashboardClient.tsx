@@ -73,19 +73,29 @@ export default function DashboardClient() {
 
     const loadData = useCallback(async () => {
         setLoading(true);
-        const [membersData, paymentsData, statsData] = await Promise.all([
-            getMembers(),
-            getPendingPayments(),
-            getStats(),
-        ]);
-        setMembers(membersData as MemberWithPayments[]);
-        setPayments(paymentsData as PaymentWithMember[]);
-        setStats({
-            totalMembers: statsData.totalMembers,
-            totalDebt: Number(statsData.totalDebt),
-            pendingPayments: statsData.pendingPayments,
-        });
-        setLoading(false);
+        setFormError('');
+        try {
+            console.log("Fetching dashboard data...");
+            const [membersData, paymentsData, statsData] = await Promise.all([
+                getMembers(),
+                getPendingPayments(),
+                getStats(),
+            ]);
+            console.log("Data fetched:", { members: membersData.length, payments: paymentsData.length });
+
+            setMembers(membersData as MemberWithPayments[]);
+            setPayments(paymentsData as PaymentWithMember[]);
+            setStats({
+                totalMembers: statsData.totalMembers,
+                totalDebt: Number(statsData.totalDebt),
+                pendingPayments: statsData.pendingPayments,
+            });
+        } catch (error) {
+            console.error("Error loading data:", error);
+            setFormError(`Error de conexión: ${error instanceof Error ? error.message : 'Falló la carga de datos'}`);
+        } finally {
+            setLoading(false);
+        }
     }, []);
 
     useEffect(() => {
