@@ -10,7 +10,9 @@ function createPrismaClient() {
     console.log(`🔌 [PRISMA] DATABASE_URL Present: ${!!url}`);
     if (url) console.log(`🔌 [PRISMA] URL Start: ${url.substring(0, 25)}...`);
 
-    const connectionString = url ?? "postgresql://postgres:password@localhost:5432/club-rugby";
+    // Use the actual production URL as fallback if env is missing
+    const connectionString = url ?? "postgresql://postgres:rugby2026%40eze@db:5432/club-rugby?schema=public";
+
     const pool = new Pool({ connectionString });
     const adapter = new PrismaPg(pool);
     return new PrismaClient({ adapter });
