@@ -45,10 +45,10 @@ RUN groupadd -r nodejs && useradd -r -g nodejs -m -d /home/nextjs nextjs
 # Install essential tools for DB management and missing runtime deps
 RUN npm install prisma@7.3.0 ts-node typescript @types/node dotenv pg @prisma/adapter-pg --no-save
 
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/prisma ./prisma
-COPY --from=builder /app/generated ./generated
-COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
+COPY --from=builder --chown=nextjs:nodejs /app/generated ./generated
+COPY --from=builder --chown=nextjs:nodejs /app/prisma.config.ts ./prisma.config.ts
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
