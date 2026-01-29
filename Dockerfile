@@ -40,9 +40,10 @@ WORKDIR /app
 ENV NODE_ENV production
 
 # Create nextjs user/group
-RUN groupadd -r nodejs && useradd -r -g nodejs nextjs
+RUN groupadd -r nodejs && useradd -r -g nodejs -m -d /home/nextjs nextjs
 
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/prisma ./prisma
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
