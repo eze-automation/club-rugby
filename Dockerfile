@@ -42,8 +42,8 @@ ENV NODE_ENV production
 # Create nextjs user/group
 RUN groupadd -r nodejs && useradd -r -g nodejs -m -d /home/nextjs nextjs
 
-# Install essential tools for DB management directly in runner
-RUN npm install prisma@7.3.0 ts-node typescript @types/node dotenv --no-save
+# Install essential tools for DB management and missing runtime deps
+RUN npm install prisma@7.3.0 ts-node typescript @types/node dotenv pg @prisma/adapter-pg --no-save
 
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/prisma ./prisma
