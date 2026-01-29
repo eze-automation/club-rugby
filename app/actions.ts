@@ -50,7 +50,7 @@ export async function uploadPayment(formData: FormData) {
         data: {
             memberId: member.id,
             amount,
-            receiptUrl: `/uploads/${fileName}`,
+            receiptUrl: `/api/uploads/${fileName}`,
             status: 'PENDING',
         },
     });
