@@ -3,6 +3,10 @@
 
 import { defineConfig } from "prisma/config";
 
+
+console.log("DEBUG: DATABASE_URL length:", process.env["DATABASE_URL"]?.length);
+console.log("DEBUG: DATABASE_URL value (first 10 chars):", process.env["DATABASE_URL"]?.substring(0, 10));
+
 export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {
